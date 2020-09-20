@@ -27,9 +27,9 @@ public class CreateCity : MonoBehaviour
             {
                 if(Mathf.Abs(i-50) > 10 && Mathf.Abs(j-50)>10)
                 {
-                    float width = ran.Next(1, 3);
-                    float height = ran.Next(10, 50);
-                    float length = ran.Next(1, 3);
+                    float width = ran.Next(1, 5);
+                    float height = ran.Next(10, 20);
+                    float length = ran.Next(1, 5);
 
                     int posX = i * 4 - 100;
                     float posY = height / 2;
@@ -39,7 +39,7 @@ public class CreateCity : MonoBehaviour
                     cubeObj.transform.localScale = new Vector3(width, height, length);
                     cubeObj.transform.position = new Vector3(posX, posY, posZ);
                     cubeObj.GetComponent<Renderer>().material.color = new Color(128, 128, 128);
-                    cubeObj.name = "building";
+                    cubeObj.name = "building_" + i + "_" + j;
                 }
                
             }
@@ -48,12 +48,10 @@ public class CreateCity : MonoBehaviour
 
         // Create landmark
        
-        float pY = 50;
-
         GameObject landmark = GameObject.CreatePrimitive(PrimitiveType.Cube);
         landmark.name = "Landmark";
-        landmark.transform.localScale = new Vector3(10, 100, 10);
-        landmark.transform.position = new Vector3(0, pY, 0);
+        landmark.transform.localScale = new Vector3(5, 50, 5);
+        landmark.transform.position = new Vector3(0, landmark.transform.localScale.y/2, 0);
         landmark.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
 
 

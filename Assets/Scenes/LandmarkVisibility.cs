@@ -35,23 +35,24 @@ public class LandmarkVisibility : MonoBehaviour
 
             foreach (Object o in allObjects)
             {
-                if (o.name == "building")
+                if (o.name.StartsWith("building"))
                 {
                     buildings.Add((GameObject)o);
                 }
             }
 
-            for (int i = 0; i < 360; i += 10)
+            for (int i = 0; i < 360; i += 1)
             {
                 for (int h = 0; h < landmark.transform.localScale.y/2; ++h)
                 {
+
                     visibilityCamera.transform.position = new Vector3(positionLandmark.x, h + positionLandmark.y - landmark.transform.localScale.y/2, positionLandmark.z);
                     visibilityCamera.transform.localEulerAngles = new Vector3(0, i,  0);
-                   
+
 
                     foreach (GameObject b in buildings)
                     {
-                        if (IsTargetVisible(visibilityCamera, b))
+                        if (IsInView(landmark, b, visibilityCamera))
                         {
                             b.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
                             
@@ -61,29 +62,50 @@ public class LandmarkVisibility : MonoBehaviour
                 }
             }
 
-            mainCamera.enabled = true;
-
-
-
-
-
-            // source https://answers.unity.com/questions/8003/how-can-i-know-if-a-gameobject-is-seen-by-a-partic.html?_ga=2.56937258.1826779449.1600550670-802618406.1600374693
-            bool IsTargetVisible(Camera c, GameObject go)
-            {
-                var planes = GeometryUtility.CalculateFrustumPlanes(c);
-                var point = go.transform.position;
-                foreach (var plane in planes)
-                {
-                    if (plane.GetDistanceToPoint(point) < 0)
-                        return false;
-                }
-                return true;
-            }
-
-
-
         }
     }
+
+    // Adapted from https://answers.unity.com/questions/8003/how-can-i-know-if-a-gameobject-is-seen-by-a-partic.html?_ga=2.78087828.1826779449.1600550670-802618406.1600374693
+    private bool IsInView(GameObject origin, GameObject building, Camera cam)
+    {
+        Vector3 pointOnScreen = cam.WorldToScreenPoint(building.transform.position);
+
+        //Is in front
+        if (pointOnScreen.z < 0)
+        {
+            return false;
+        }
+
+        //Is in FOV
+        if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) ||
+                (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
+        {
+            return false;
+        }
+
+        RaycastHit hit;
+        Vector3 heading = building.transform.position - origin.transform.position;
+        Vector3 direction = heading.normalized;// / heading.magnitude;
+
+        Vector3 positionOnAx = building.transform.position;
+
+        positionOnAx.y = cam.transform.position.y;
+
+        if(positionOnAx.y > building.transform.localScale.y/2)
+        {
+            return false; // According to the slides, I assume that the view is only planar
+        }
+
+        if (Physics.Linecast(cam.transform.position, positionOnAx, out hit))
+        {
+            if (hit.transform.name != building.name)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
-    
+
 
