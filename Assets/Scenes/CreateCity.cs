@@ -50,6 +50,7 @@ public class CreateCity : MonoBehaviour
         float pY = 50;
 
         GameObject landmark = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        landmark.name = "Landmark";
         landmark.transform.localScale = new Vector3(10, 100, 10);
         landmark.transform.position = new Vector3(0, pY, 0);
         landmark.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
