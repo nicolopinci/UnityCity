@@ -38,7 +38,8 @@ public class CreateCity : MonoBehaviour
                     GameObject cubeObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     cubeObj.transform.localScale = new Vector3(width, height, length);
                     cubeObj.transform.position = new Vector3(posX, posY, posZ);
-                    cubeObj.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
+                    cubeObj.GetComponent<Renderer>().material.color = new Color(128, 128, 128);
+                    cubeObj.name = "building";
                 }
                
             }
@@ -53,7 +54,7 @@ public class CreateCity : MonoBehaviour
         landmark.name = "Landmark";
         landmark.transform.localScale = new Vector3(10, 100, 10);
         landmark.transform.position = new Vector3(0, pY, 0);
-        landmark.GetComponent<Renderer>().material.color = new Color(0, 0, 255);
+        landmark.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
 
 
         // Create rectangle-shaped park in the scene
@@ -70,9 +71,13 @@ public class CreateCity : MonoBehaviour
 
         //Set the Texture you assign in the Inspector as the main texture (Or Albedo)
         park.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Texture2D>("grass_main"));
+        park.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(10, 10));
+
         //Set the Normal map using the Texture you assign in the Inspector
         park.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("grass_normalMap"));
-       
+        park.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(10, 10));
+
+
         // PAVEMENT TEXTURE
         //Make sure to enable the Keywords
         pavement.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
@@ -81,8 +86,12 @@ public class CreateCity : MonoBehaviour
 
         //Set the Texture you assign in the Inspector as the main texture (Or Albedo)
         pavement.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Texture2D>("pavement_diffuse"));
+        pavement.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(50, 50));
+        
         //Set the Normal map using the Texture you assign in the Inspector
         pavement.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("pavement_normal"));
+        pavement.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(50, 50));
+
         //Set the Metallic Texture as a Texture you assign in the Inspector
         // m_Renderer.material.SetTexture("_MetallicGlossMap", m_Metal);
     }

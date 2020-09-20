@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scenes\CameraMovement.cs" />
     <Compile Include="Assets\Scenes\CreateCity.cs" />
     <Compile Include="Assets\Scenes\CreateSun.cs" />
     <Compile Include="Assets\Scenes\LandmarkVisibility.cs" />
