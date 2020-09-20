@@ -60,6 +60,7 @@ public class CreateCity : MonoBehaviour
         GameObject park = GameObject.CreatePrimitive(PrimitiveType.Plane);
         park.transform.localScale = new Vector3(10, 10, 10);
         park.transform.position = new Vector3(100, 1, 0);
+        park.name = "park";
 
 
         // PARK TEXTURE
