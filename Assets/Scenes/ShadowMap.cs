@@ -34,8 +34,13 @@ public class ShadowMap : MonoBehaviour {
             Vector3 maxBound = park.GetComponent<Renderer>().bounds.max;
             Vector3 minBound = park.GetComponent<Renderer>().bounds.min;
 
+            var sequence = "0"; // sequence for CFH
 
             var shadowPoints = new Dictionary<Vector3, int>();
+            var cfhPoints = new Dictionary<Vector3, string>();
+            var cumulativeCFH = new Dictionary<Vector3, int>();
+
+
             Vector3 directionSun = sun.transform.forward;
             int alphaMax = 360;
 
@@ -53,7 +58,7 @@ public class ShadowMap : MonoBehaviour {
                         Vector3 currentOrigin = new Vector3(i, minBound.y, j);
                         directionMovingSun.Normalize();
 
-                        if (Physics.Raycast(currentOrigin, - directionMovingSun, 10000))
+                        if (Physics.Raycast(currentOrigin, -directionMovingSun, 10000))
                         {
                             if (shadowPoints.ContainsKey(currentOrigin))
                             {
@@ -63,6 +68,44 @@ public class ShadowMap : MonoBehaviour {
                             {
                                 shadowPoints[currentOrigin] = 1;
                             }
+
+                            if (cfhPoints.ContainsKey(currentOrigin))
+                            {
+                                cfhPoints[currentOrigin] = System.String.Concat(cfhPoints[currentOrigin], "1");
+                            }
+                            else
+                            {
+                                cfhPoints[currentOrigin] = "1";
+                            }
+                        }
+                        else
+                        {
+                            if (cfhPoints.ContainsKey(currentOrigin))
+                            {
+                                cfhPoints[currentOrigin] = System.String.Concat(cfhPoints[currentOrigin], "0");
+                            }
+                            else
+                            {
+                                cfhPoints[currentOrigin] = "0";
+                            }
+                        }
+
+                        if (cfhPoints[currentOrigin] == sequence)
+                        {
+                            if (cumulativeCFH.ContainsKey(currentOrigin))
+                            {
+                                cumulativeCFH[currentOrigin] += 1;
+                            }
+                            else
+                            {
+                                cumulativeCFH[currentOrigin] = 1;
+                            }
+
+                            cfhPoints[currentOrigin] = "";
+                        }
+                        else if (!compatible(cfhPoints[currentOrigin], sequence))
+                        {
+                            cfhPoints[currentOrigin] = "";
                         }
 
                     }
@@ -74,47 +117,72 @@ public class ShadowMap : MonoBehaviour {
             var columns = (int)maxBound.z - (int)minBound.z;
 
             int[,] matrixShadowMap = new int[rows, columns];
+            int[,] matrixCFH = new int[rows, columns]; // the time is determined by the steps of the sun movement
 
             foreach (KeyValuePair<Vector3, int> entry in shadowPoints)
             {
                 matrixShadowMap[(int)entry.Key.x - (int)minBound.x, (int)entry.Key.z - (int)minBound.z] = entry.Value;
             }
 
-
-            using (TextWriter tw = new StreamWriter("computedShadowMap.html"))
+            foreach (KeyValuePair<Vector3, int> entry in cumulativeCFH)
             {
-                tw.Write("<head>   <script src = 'https://cdn.plot.ly/plotly-latest.min.js' ></script></head><body><div id = 'myDiv' ></div></body><script> var data = [{z: [");
-                for (int j = 0; j < rows; j++)
-                {
-                   
-                    tw.Write("[");
-                    
-
-                    for (int i = 0; i < columns; i++)
-                    {
-                        tw.Write(matrixShadowMap[j, i]);
-                        if(i != columns - 1)
-                        {
-                            tw.Write(", ");
-                        }
-                    }
-                    if(j == rows - 1)
-                    {
-                        tw.Write("]");
-                    }
-                    else
-                    {
-                        tw.Write("], ");
-                    }
-                
-                }
-                tw.Write("], type: 'heatmap'}]; Plotly.newPlot('myDiv', data);</script>");
+                matrixCFH[(int)entry.Key.x - (int)minBound.x, (int)entry.Key.z - (int)minBound.z] = entry.Value;
             }
 
-            
-
-            Debug.Log("The heatmap file has been created");
-
+            generateGraph(matrixShadowMap, "ShadowMap.html", rows, columns);
+            generateGraph(matrixCFH, "CFH.html", rows, columns);
         }
     }
+
+    void generateGraph(int[,] matrix, string file_name, int rows, int columns) {
+
+
+        using (TextWriter tw = new StreamWriter(file_name))
+        {
+            tw.Write("<head>   <script src = 'https://cdn.plot.ly/plotly-latest.min.js' ></script></head><body><div id = 'myDiv' ></div></body><script> var data = [{z: [");
+            for (int j = 0; j < rows; j++)
+            {
+
+                tw.Write("[");
+
+
+                for (int i = 0; i < columns; i++)
+                {
+                    tw.Write(matrix[j, i]);
+                    if (i != columns - 1)
+                    {
+                        tw.Write(", ");
+                    }
+                }
+                if (j == rows - 1)
+                {
+                    tw.Write("]");
+                }
+                else
+                {
+                    tw.Write("], ");
+                }
+
+            }
+            tw.Write("], type: 'heatmap'}]; Plotly.newPlot('myDiv', data);</script>");
+        }
+
+        Debug.Log("The file has been generated");
+
+    }
+
+    bool compatible(string observed, string sequence)
+    {
+        for(int i=0; i<observed.Length; ++i)
+        {
+            if(observed[i] != sequence[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
+
+     
+ 
