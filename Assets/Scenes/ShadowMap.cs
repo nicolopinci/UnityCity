@@ -36,36 +36,36 @@ public class ShadowMap : MonoBehaviour {
 
 
             var shadowPoints = new Dictionary<Vector3, int>();
+            Vector3 directionSun = sun.transform.forward;
+            int alphaMax = 360;
 
-            for (int i = (int)minBound.x; i < (int)maxBound.x; ++i)
+            for (int alpha = 0; alpha < alphaMax; alpha++)
             {
-                for (int j = (int)minBound.z; j < (int)maxBound.z; ++j)
+                // Move sun
+                sun.transform.localEulerAngles = new Vector3(sun.transform.localEulerAngles.x, alpha, sun.transform.localEulerAngles.z);
+
+                Vector3 directionMovingSun = sun.transform.forward;
+
+                for (int i = (int)minBound.x; i < (int)maxBound.x; ++i)
                 {
-                    Vector3 currentOrigin = new Vector3(i, minBound.y, j);
-                    Vector3 directionSun = sun.transform.forward;
-                    directionSun.Normalize();
-                    directionSun *= 100;
-
-
-
-
-                    if (Physics.Raycast(currentOrigin, currentOrigin - directionSun, 1000))
+                    for (int j = (int)minBound.z; j < (int)maxBound.z; ++j)
                     {
-                        if (shadowPoints.ContainsKey(currentOrigin))
+                        Vector3 currentOrigin = new Vector3(i, minBound.y, j);
+                        directionMovingSun.Normalize();
+
+                        if (Physics.Raycast(currentOrigin, - directionMovingSun, 10000))
                         {
-                            shadowPoints[currentOrigin] += 1;
+                            if (shadowPoints.ContainsKey(currentOrigin))
+                            {
+                                shadowPoints[currentOrigin] += 1;
+                            }
+                            else
+                            {
+                                shadowPoints[currentOrigin] = 1;
+                            }
                         }
-                        else
-                        {
-                            shadowPoints[currentOrigin] = 1;
-                        }
+
                     }
-
-
-
-
-
-
                 }
             }
 
@@ -77,21 +77,43 @@ public class ShadowMap : MonoBehaviour {
 
             foreach (KeyValuePair<Vector3, int> entry in shadowPoints)
             {
-                matrixShadowMap[(int)entry.Key.x, (int)entry.Key.y] = entry.Value;
+                matrixShadowMap[(int)entry.Key.x - (int)minBound.x, (int)entry.Key.z - (int)minBound.z] = entry.Value;
             }
 
 
-            using (TextWriter tw = new StreamWriter("computedShadowMap.txt"))
+            using (TextWriter tw = new StreamWriter("computedShadowMap.html"))
             {
-                for (int j = 0; j < columns; j++)
+                tw.Write("<head>   <script src = 'https://cdn.plot.ly/plotly-latest.min.js' ></script></head><body><div id = 'myDiv' ></div></body><script> var data = [{z: [");
+                for (int j = 0; j < rows; j++)
                 {
-                    for (int i = 0; i < rows; i++)
+                   
+                    tw.Write("[");
+                    
+
+                    for (int i = 0; i < columns; i++)
                     {
-                        tw.Write(matrixShadowMap[i, j] + "\t");
+                        tw.Write(matrixShadowMap[j, i]);
+                        if(i != columns - 1)
+                        {
+                            tw.Write(", ");
+                        }
                     }
-                    tw.WriteLine();
+                    if(j == rows - 1)
+                    {
+                        tw.Write("]");
+                    }
+                    else
+                    {
+                        tw.Write("], ");
+                    }
+                
                 }
+                tw.Write("], type: 'heatmap'}]; Plotly.newPlot('myDiv', data);</script>");
             }
+
+            
+
+            Debug.Log("The heatmap file has been created");
 
         }
     }
