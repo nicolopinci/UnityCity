@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class ShadowMap : MonoBehaviour { 
@@ -34,7 +35,7 @@ public class ShadowMap : MonoBehaviour {
             Vector3 maxBound = park.GetComponent<Renderer>().bounds.max;
             Vector3 minBound = park.GetComponent<Renderer>().bounds.min;
 
-            var sequence = "0"; // sequence for CFH
+            var sequence = "10"; // sequence for CFH
 
             var shadowPoints = new Dictionary<Vector3, int>();
             var cfhPoints = new Dictionary<Vector3, string>();
@@ -58,7 +59,7 @@ public class ShadowMap : MonoBehaviour {
                         Vector3 currentOrigin = new Vector3(i, minBound.y, j);
                         directionMovingSun.Normalize();
 
-                        if (Physics.Raycast(currentOrigin, -directionMovingSun, 10000))
+                        if (Physics.Raycast(currentOrigin, -directionMovingSun, 10000)) // shadow
                         {
                             if (shadowPoints.ContainsKey(currentOrigin))
                             {
@@ -78,7 +79,7 @@ public class ShadowMap : MonoBehaviour {
                                 cfhPoints[currentOrigin] = "1";
                             }
                         }
-                        else
+                        else // no shadow
                         {
                             if (cfhPoints.ContainsKey(currentOrigin))
                             {
@@ -90,26 +91,15 @@ public class ShadowMap : MonoBehaviour {
                             }
                         }
 
-                        if (cfhPoints[currentOrigin] == sequence)
-                        {
-                            if (cumulativeCFH.ContainsKey(currentOrigin))
-                            {
-                                cumulativeCFH[currentOrigin] += 1;
-                            }
-                            else
-                            {
-                                cumulativeCFH[currentOrigin] = 1;
-                            }
-
-                            cfhPoints[currentOrigin] = "";
-                        }
-                        else if (!compatible(cfhPoints[currentOrigin], sequence))
-                        {
-                            cfhPoints[currentOrigin] = "";
-                        }
+                       
 
                     }
                 }
+            }
+
+            foreach(KeyValuePair<Vector3, string> entry in cfhPoints)
+            {
+                cumulativeCFH[entry.Key] = Regex.Matches(entry.Value, sequence).Count;
             }
 
 
