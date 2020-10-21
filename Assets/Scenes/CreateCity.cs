@@ -38,10 +38,25 @@ public class CreateCity : MonoBehaviour
                     GameObject cubeObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     cubeObj.transform.localScale = new Vector3(width, height, length);
                     cubeObj.transform.position = new Vector3(posX, posY, posZ);
-                    cubeObj.GetComponent<Renderer>().material.color = new Color(128, 128, 128);
+                    //cubeObj.GetComponent<Renderer>().material.color = new Color(128, 128, 128);
                     cubeObj.name = "building_" + i + "_" + j;
+
+                    // LANDMARK TEXTURE
+                    //Make sure to enable the Keywords
+                    cubeObj.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
+                    //cubeObj.GetComponent<Renderer>().material.EnableKeyword("_METALLICGLOSSMAP");
+
+
+                    //Set the Texture you assign in the Inspector as the main texture (Or Albedo)
+                    cubeObj.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Texture2D>("building_diffuse"));
+                    cubeObj.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(3, 10));
+
+                    //Set the Normal map using the Texture you assign in the Inspector
+                    cubeObj.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("building_normal"));
+                    cubeObj.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(3, 10));
+
                 }
-               
+
             }
           
         }
@@ -52,8 +67,8 @@ public class CreateCity : MonoBehaviour
         landmark.name = "Landmark";
         landmark.transform.localScale = new Vector3(5, 50, 5);
         landmark.transform.position = new Vector3(0, landmark.transform.localScale.y/2, 0);
-        landmark.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
 
+    
 
         // Create rectangle-shaped park in the scene
 
@@ -80,7 +95,6 @@ public class CreateCity : MonoBehaviour
         // PAVEMENT TEXTURE
         //Make sure to enable the Keywords
         pavement.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
-        pavement.GetComponent<Renderer>().material.EnableKeyword("_METALLICGLOSSMAP");
 
 
         //Set the Texture you assign in the Inspector as the main texture (Or Albedo)
@@ -91,8 +105,22 @@ public class CreateCity : MonoBehaviour
         pavement.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("pavement_normal"));
         pavement.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(50, 50));
 
-        //Set the Metallic Texture as a Texture you assign in the Inspector
-        // m_Renderer.material.SetTexture("_MetallicGlossMap", m_Metal);
+
+
+
+        // LANDMARK TEXTURE
+        //Make sure to enable the Keywords
+        landmark.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
+
+
+        //Set the Texture you assign in the Inspector as the main texture (Or Albedo)
+        landmark.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Texture2D>("landmark_diffuse"));
+        landmark.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(3, 10));
+
+        //Set the Normal map using the Texture you assign in the Inspector
+        landmark.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("landmark_normal"));
+        landmark.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(3, 10));
+
     }
 
     // Update is called once per frame

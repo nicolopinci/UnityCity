@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scenes\LandmarkVisibility.cs" />
     <Compile Include="Assets\Scenes\ShadowMap.cs" />
     <Compile Include="Assets\Scenes\SunMovement.cs" />
+    <None Include="Assets\DualCorStudios\Readme.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
