@@ -26,39 +26,54 @@ public class LandmarkVisibility : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             Vector2 mousePosition = Input.mousePosition;
-            
-            GameObject landmark = GameObject.Find("Landmark");
-            Vector3 positionLandmark = landmark.transform.position;
-
             Object[] allObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject));
             List<GameObject> buildings = new List<GameObject>();
+            List<GameObject> landmarks = new List<GameObject>();
 
-            foreach (Object o in allObjects)
+            foreach (GameObject o in allObjects)
             {
                 if (o.name.StartsWith("building"))
                 {
                     buildings.Add((GameObject)o);
+                    o.GetComponent<Renderer>().material.color = Color.white;
+
+                }
+                else if(o.name.StartsWith("Landmark"))
+                {
+                    landmarks.Add((GameObject)o);
                 }
             }
 
-            for (int i = 0; i < 360; i += 1)
+
+            //GameObject landmark = GameObject.Find("Landmark");
+
+            foreach (var landmark in landmarks)
             {
-                for (int h = 0; h < landmark.transform.localScale.y/2; ++h)
+                Vector3 positionLandmark = landmark.transform.position;
+
+
+
+                
+
+                for (int i = 0; i < 360; i += 1)
                 {
-
-                    visibilityCamera.transform.position = new Vector3(positionLandmark.x, h + positionLandmark.y - landmark.transform.localScale.y/2, positionLandmark.z);
-                    visibilityCamera.transform.localEulerAngles = new Vector3(0, i,  0);
-
-
-                    foreach (GameObject b in buildings)
+                    for (int h = 0; h < landmark.transform.localScale.y / 2; ++h)
                     {
-                        if (IsInView(landmark, b, visibilityCamera))
-                        {
-                            b.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
-                            
-                        }
-                    }
 
+                        visibilityCamera.transform.position = new Vector3(positionLandmark.x, h + positionLandmark.y - landmark.transform.localScale.y / 2, positionLandmark.z);
+                        visibilityCamera.transform.localEulerAngles = new Vector3(0, i, 0);
+
+
+                        foreach (GameObject b in buildings)
+                        {
+                            if (IsInView(landmark, b, visibilityCamera))
+                            {
+                                b.GetComponent<Renderer>().material.color = new Color(255, 0, 0);
+
+                            }
+                        }
+
+                    }
                 }
             }
 

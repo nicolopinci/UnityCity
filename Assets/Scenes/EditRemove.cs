@@ -60,6 +60,52 @@ public class EditRemove : MonoBehaviour
                 Destroy(clicked_object);
             }
             // Right click on Plane -> calculate sky visibility
+            else
+            {
+                var origin = hit.point;
+                var point_visibility = 0;
+                var tot_points = 0;
+
+                for (var a = 0; a < 180; a++)
+                {
+                    for(var b = 0; b < 360; b++)
+                    {
+                        var a_r = (Mathf.PI * a) / 180;
+                        var b_r = (Mathf.PI * b) / 180;
+
+                        Vector3 direction = new Vector3(Mathf.Sin(a_r) * Mathf.Cos(b_r), Mathf.Cos(a_r), Mathf.Sin(a_r) * Mathf.Sin(b_r));
+                        var sky_ray = new Ray(origin, direction);
+
+                        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+
+                        var num_intersections = 0;
+
+                        foreach(GameObject o in allObjects) {
+                            RaycastHit ob_hit;
+
+                            var obj_collider = o.GetComponent<Collider>();
+
+                            if (obj_collider != null)
+                            {
+                                if (obj_collider.Raycast(sky_ray, out ob_hit, 1000.0f))
+                                {
+                                    num_intersections += 1;
+                                }
+                            }
+                        }
+
+                        if(num_intersections > 0)
+                        {
+                            point_visibility += 1;
+                        }
+                        tot_points += 1;
+                    }
+                }
+
+                point_visibility = tot_points - point_visibility;
+
+                Debug.Log("Sky visibility proportion: " + (float)point_visibility / (float)tot_points);
+            }
 
 
         }
