@@ -41,7 +41,7 @@ public class CreateCity : MonoBehaviour
                     //cubeObj.GetComponent<Renderer>().material.color = new Color(128, 128, 128);
                     cubeObj.name = "building_" + i + "_" + j;
 
-                    // LANDMARK TEXTURE
+                    // BUILDING TEXTURE
                     //Make sure to enable the Keywords
                     cubeObj.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
                     //cubeObj.GetComponent<Renderer>().material.EnableKeyword("_METALLICGLOSSMAP");
