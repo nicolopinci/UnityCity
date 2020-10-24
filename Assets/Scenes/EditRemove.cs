@@ -66,15 +66,17 @@ public class EditRemove : MonoBehaviour
                 var point_visibility = 0;
                 var tot_points = 0;
 
-                for (var a = 0; a < 180; a++)
+                for (var a = 0; a < 90; a+=5) // Because only the top part is covered
                 {
-                    for(var b = 0; b < 360; b++)
+                    for(var b = 0; b < 360; b+=5)
                     {
                         var a_r = (Mathf.PI * a) / 180;
                         var b_r = (Mathf.PI * b) / 180;
 
                         Vector3 direction = new Vector3(Mathf.Sin(a_r) * Mathf.Cos(b_r), Mathf.Cos(a_r), Mathf.Sin(a_r) * Mathf.Sin(b_r));
                         var sky_ray = new Ray(origin, direction);
+
+                        //Debug.DrawRay(origin, direction*100, Color.green, 1000);
 
                         GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
 

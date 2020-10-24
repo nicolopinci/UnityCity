@@ -5,6 +5,7 @@ using UnityEngine;
 public class SunMovement : MonoBehaviour
 {
     public GameObject sun;
+    bool keepMoving = false;
 
     // Sun creation
     void Start()
@@ -25,20 +26,32 @@ public class SunMovement : MonoBehaviour
     // Sun movement simulation
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
+        if(Input.GetKeyDown(KeyCode.P))
         {
-            Light sunLight = sun.GetComponent<Light>();
-            Vector3 currentAngles = sunLight.transform.localEulerAngles;
-
-            sunLight.transform.localEulerAngles = new Vector3(currentAngles.x, currentAngles.y + 10, currentAngles.z);
+            keepMoving = !keepMoving;
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            MoveSun(-10);
         }
         else if(Input.GetKeyDown(KeyCode.A))
         {
-            Light sunLight = sun.GetComponent<Light>();
-            Vector3 currentAngles = sunLight.transform.localEulerAngles;
+            MoveSun(10);
+        }
 
-            sunLight.transform.localEulerAngles = new Vector3(currentAngles.x, currentAngles.y - 10, currentAngles.z);
+        if (keepMoving)
+        {
+            MoveSun(-1);
 
         }
+        
+    }
+
+    void MoveSun(float amount)
+    {
+        Light sunLight = sun.GetComponent<Light>();
+        Vector3 currentAngles = sunLight.transform.localEulerAngles;
+
+        sunLight.transform.localEulerAngles = new Vector3(currentAngles.x, currentAngles.y + amount, currentAngles.z);
     }
 }

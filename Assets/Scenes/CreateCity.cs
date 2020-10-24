@@ -17,6 +17,7 @@ public class CreateCity : MonoBehaviour
 
         // Create pavement
         GameObject pavement = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        pavement.name = "Pavement";
         pavement.transform.localScale = new Vector3(100, 100, 100);
         pavement.transform.position = new Vector3(0, 0, 0);
 
@@ -84,11 +85,11 @@ public class CreateCity : MonoBehaviour
 
 
         //Set the Texture you assign in the Inspector as the main texture (Or Albedo)
-        park.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Texture2D>("grass_main"));
+        park.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Texture2D>("grass_diffuse"));
         park.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(10, 10));
 
         //Set the Normal map using the Texture you assign in the Inspector
-        park.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("grass_normalMap"));
+        park.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("grass_normal"));
         park.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(10, 10));
 
 
