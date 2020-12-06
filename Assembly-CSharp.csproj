@@ -61,9 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scenes\AddBL.cs" />
+    <Compile Include="Assets\Scenes\ButtonLandmarkVisibility.cs" />
+    <Compile Include="Assets\Scenes\ButtonMoveSun.cs" />
+    <Compile Include="Assets\Scenes\ButtonZoomIn.cs" />
+    <Compile Include="Assets\Scenes\ButtonZoomOut.cs" />
     <Compile Include="Assets\Scenes\CameraMovement.cs" />
     <Compile Include="Assets\Scenes\CreateCity.cs" />
-    <Compile Include="Assets\Scenes\CreateSun.cs" />
     <Compile Include="Assets\Scenes\EditRemove.cs" />
     <Compile Include="Assets\Scenes\ExportScene.cs" />
     <Compile Include="Assets\Scenes\LandmarkVisibility.cs" />

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SunMovement : MonoBehaviour
 {
-    public GameObject sun;
+    public static GameObject sun;
     bool keepMoving = false;
 
     // Sun creation
@@ -47,7 +47,7 @@ public class SunMovement : MonoBehaviour
         
     }
 
-    void MoveSun(float amount)
+    public static void MoveSun(float amount)
     {
         Light sunLight = sun.GetComponent<Light>();
         Vector3 currentAngles = sunLight.transform.localEulerAngles;
