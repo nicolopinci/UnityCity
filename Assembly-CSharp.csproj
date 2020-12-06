@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AllSkyFree\AllSkyFree_Menu.cs" />
     <Compile Include="Assets\Scenes\AddBL.cs" />
     <Compile Include="Assets\Scenes\ButtonLandmarkVisibility.cs" />
     <Compile Include="Assets\Scenes\ButtonMoveSun.cs" />
@@ -73,20 +74,37 @@
     <Compile Include="Assets\Scenes\SavedSceneGenerator.cs" />
     <Compile Include="Assets\Scenes\ShadowMap.cs" />
     <Compile Include="Assets\Scenes\SunMovement.cs" />
+    <None Include="Assets\VRWaterShader2\Readme.txt" />
+    <None Include="Assets\VRWaterShader2\Shaders\Standard.shader" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Readme_ja.txt" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\Standard.shader" />
+    <None Include="Assets\laxer tree pkg\README.txt" />
+    <None Include="Assets\VRWaterShader2\Shaders\VRWSTess.cginc" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\GLES30\Double Sided.shader" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\ZWrite Double Sided.shader" />
+    <None Include="Assets\VRWaterShader2\Shaders\VRWSCore.cginc" />
+    <None Include="Assets\AllSkyFree\AllSkyFree_Readme.txt" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\Double Sided.shader" />
+    <None Include="Assets\VRWaterShader2\Shaders\VRWSShadowCaster.cginc" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\GLES30\ZWrite Double Sided.shader" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Readme.txt" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\GLES30\Standard.shader" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\GLES30\ZWrite Standard.shader" />
+    <None Include="Assets\VRWaterShader2\VRWaterShader(legacy)\Shaders\ZWrite Standard.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -293,13 +311,13 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/UIALS/Documents/Unity/Unity City/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/CG1/Unity/Unity City/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

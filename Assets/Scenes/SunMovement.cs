@@ -13,7 +13,7 @@ public class SunMovement : MonoBehaviour
         sun = new GameObject("Sun");
 
         Light light = sun.AddComponent<Light>();
-        light.color = Color.yellow;
+        light.color = Color.white;
         light.transform.position = new Vector3(0, 0, 0);
         light.type = LightType.Directional;
         light.transform.localEulerAngles = new Vector3(30, 90, 0);
