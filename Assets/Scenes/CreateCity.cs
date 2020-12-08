@@ -14,12 +14,13 @@ public class CreateCity : MonoBehaviour
     void Start()
     {
 
-
+        /*
         // Create pavement
         GameObject pavement = GameObject.CreatePrimitive(PrimitiveType.Plane);
         pavement.name = "Pavement";
         pavement.transform.localScale = new Vector3(100, 100, 100);
         pavement.transform.position = new Vector3(0, 0, 0);
+        */
 
         // Create buildings
         for(int i=0; i<50; i=i+4)
@@ -92,7 +93,7 @@ public class CreateCity : MonoBehaviour
         park.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("grass_normal"));
         park.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(10, 10));
 
-
+        /*
         // PAVEMENT TEXTURE
         //Make sure to enable the Keywords
         pavement.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
@@ -105,7 +106,7 @@ public class CreateCity : MonoBehaviour
         //Set the Normal map using the Texture you assign in the Inspector
         pavement.GetComponent<Renderer>().material.SetTexture("_BumpMap", Resources.Load<Texture2D>("pavement_normal"));
         pavement.GetComponent<Renderer>().material.SetTextureScale("_BumpMap", new Vector2(50, 50));
-
+        */
 
 
 

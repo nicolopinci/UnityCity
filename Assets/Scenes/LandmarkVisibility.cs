@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEditor;
+
+
 public class LandmarkVisibility : MonoBehaviour
 {
     public static GameObject cameraObj;
@@ -52,13 +55,13 @@ public class LandmarkVisibility : MonoBehaviour
 
 
         //GameObject landmark = GameObject.Find("Landmark");
+        int hit_buildings = 0;
+        int total_buildings = 0;
+
 
         foreach (var landmark in landmarks)
         {
             Vector3 positionLandmark = landmark.transform.position;
-
-
-
 
 
             for (int i = 0; i < 360; i += 1)
@@ -82,6 +85,20 @@ public class LandmarkVisibility : MonoBehaviour
                 }
             }
         }
+
+        foreach (GameObject b in buildings)
+        {
+            if (b.GetComponent<Renderer>().material.color == new Color(255, 0, 0))
+            {
+                hit_buildings += 1;
+            }
+            total_buildings += 1;
+        }
+
+        float visibility_score = 100f * (float)hit_buildings / (float)total_buildings;
+
+        EditorUtility.DisplayDialog("Landmark visibility", "The landmark visibility is " + visibility_score + "%", "Ok");
+
 
     }
 

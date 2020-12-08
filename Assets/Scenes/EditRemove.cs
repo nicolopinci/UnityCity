@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class EditRemove : MonoBehaviour
@@ -106,7 +107,8 @@ public class EditRemove : MonoBehaviour
 
                 point_visibility = tot_points - point_visibility;
 
-                Debug.Log("Sky visibility proportion: " + (float)point_visibility / (float)tot_points);
+                EditorUtility.DisplayDialog("Sky visibility", "The sky visibility in the selected point is " + 100f * (float)point_visibility / (float)tot_points + "%", "Ok");
+
             }
 
 
