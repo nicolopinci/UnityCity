@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShadowMap : MonoBehaviour { 
 
@@ -47,7 +48,18 @@ public class ShadowMap : MonoBehaviour {
         Vector3 maxBound = park.GetComponent<Renderer>().bounds.max;
         Vector3 minBound = park.GetComponent<Renderer>().bounds.min;
 
-        var sequence = "10"; // sequence for CFH
+        // var sequence = "10"; // sequence for CFH
+
+        var sequence = GameObject.Find("CFH Sequence").GetComponent<InputField>().text;
+
+        foreach(char c in sequence)
+        {
+            if(c != '0' && c != '1')
+            {
+                EditorUtility.DisplayDialog("Invalid CFH sequence", "Please use only 0's and 1's in the CFH sequence", "Ok");
+                return;
+            }
+        }
 
         var shadowPoints = new Dictionary<Vector3, int>();
         var cfhPoints = new Dictionary<Vector3, string>();
