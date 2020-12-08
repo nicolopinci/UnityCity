@@ -55,8 +55,8 @@ public class EditRemove : MonoBehaviour
         {
             var clicked_object = hit.collider.gameObject;
             
-            // Right click on building/landmark -> remove building or landmark
-            if(clicked_object.name.StartsWith("building") || clicked_object.name.StartsWith("Landmark"))
+            // Right click on building/landmark -> remove building or landmark. The same for animated bars
+            if(clicked_object.name.StartsWith("building") || clicked_object.name.StartsWith("animatedbar") || clicked_object.name.StartsWith("Landmark"))
             {
                 Destroy(clicked_object);
             }

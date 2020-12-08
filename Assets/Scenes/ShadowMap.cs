@@ -68,11 +68,14 @@ public class ShadowMap : MonoBehaviour {
 
         Vector3 directionSun = sun.transform.forward;
         int alphaMax = 360;
+        int step = 10;
 
-        for (int alpha = 0; alpha < alphaMax; alpha++)
+        for (int alpha = 0; alpha < alphaMax; alpha+=step)
         {
             // Move sun
-            sun.transform.localEulerAngles = new Vector3(sun.transform.localEulerAngles.x, alpha, sun.transform.localEulerAngles.z);
+            sun.GetComponent<Light>().transform.Rotate(new Vector3(step, 0, 0));
+
+            //sun.transform.localEulerAngles = new Vector3(sun.transform.localEulerAngles.x, alpha, sun.transform.localEulerAngles.z);
 
             Vector3 directionMovingSun = sun.transform.forward;
 

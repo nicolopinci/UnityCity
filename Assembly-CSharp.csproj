@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\AllSkyFree\AllSkyFree_Menu.cs" />
     <Compile Include="Assets\Scenes\AddBL.cs" />
+    <Compile Include="Assets\Scenes\AnimatedBar.cs" />
     <Compile Include="Assets\Scenes\ButtonExportScene.cs" />
     <Compile Include="Assets\Scenes\ButtonHeatmaps.cs" />
     <Compile Include="Assets\Scenes\ButtonImportCity.cs" />
