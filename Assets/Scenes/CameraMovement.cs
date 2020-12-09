@@ -50,5 +50,41 @@ public class CameraMovement : MonoBehaviour
 
         }
 
+        if(Input.GetKey(KeyCode.Plus) || Input.GetKey(KeyCode.KeypadPlus))
+        {
+            changeFOV(-10);
+        }
+
+        if (Input.GetKey(KeyCode.Minus) || Input.GetKey(KeyCode.KeypadMinus))
+        {
+            changeFOV(10);
+        }
+
+    }
+
+    static void changeFOV(float percentage)
+    {
+        float oldFOV = Camera.main.fieldOfView;
+        Camera.main.fieldOfView = (1 + percentage / 100) * oldFOV;
+    }
+
+    public static void goUp(float amount)
+    {
+        Camera.main.transform.Translate(new Vector3(0, amount, 0));
+    }
+
+    public static void goDown(float amount)
+    {
+        Camera.main.transform.Translate(new Vector3(0, -amount, 0));
+        if(Camera.main.transform.position.y < 0)
+        {
+            Vector3 oldPosition = Camera.main.transform.position;
+            Vector3 newPosition = oldPosition;
+            newPosition.y = 0;
+
+            Quaternion oldRotation = Camera.main.transform.rotation;
+
+            Camera.main.transform.SetPositionAndRotation(newPosition, oldRotation);
+        }
     }
 }

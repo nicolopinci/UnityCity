@@ -82,6 +82,8 @@ public class SunMovement : MonoBehaviour
                 point = point + new Vector3(0, height / 2, 0) + new Vector3(0, -originalHeight, 0);
                 cubeObj.transform.position = point;
                 var bar_renderer = cubeObj.GetComponent<Renderer>();
+                bar_renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                //bar_renderer.GetComponent<UnityEngine.EventSystems.PhysicsRaycaster>().enabled = false;
 
                 Color col = Color.red;
                 col.r = height/100.0f;

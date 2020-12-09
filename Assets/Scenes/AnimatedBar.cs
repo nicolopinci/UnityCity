@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class AnimatedBar : MonoBehaviour
 {
@@ -46,6 +47,8 @@ public class AnimatedBar : MonoBehaviour
                 cubeObj.transform.position = mouse_position;
 
                 var bar_renderer = cubeObj.GetComponent<Renderer>();
+                cubeObj.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                //cubeObj.GetComponent<PhysicsRaycaster>().enabled = false;
 
                 Color col = Color.red;
                 col.r = height/100.0f;
